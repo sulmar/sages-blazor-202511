@@ -3,38 +3,16 @@
 
 <h3>@message</h3>
 
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Nip</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach (var customer in customers)
-        {
-            <tr>
-                <td>@customer.Name</td>
-                <td>@customer.Email</td>
-                <td>@customer.Nip</td>
-            </tr>
-        }
-    </tbody>
-
-    <tfoot>
-        <tr>
-            Count: @customers.Count()
-        </tr>
-    </tfoot>
-
-</table>
-
-
-<ul>
-</ul>
+<CustomersTable Customers="@customers" />
 
 @code {
     private string message = "Customer List";
+
+    private IEnumerable<Customer> customers = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        customers = await Repository.GetAllAsync();
+    }
+   
 }

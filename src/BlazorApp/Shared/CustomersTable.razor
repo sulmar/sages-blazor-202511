@@ -1,0 +1,36 @@
+﻿
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Nip</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var customer in Customers)
+        {
+            <tr>
+                <td>@customer.Name</td>
+                <td>@customer.Email</td>
+                <td>@customer.Nip</td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            Count: @Customers.Count()
+        </tr>
+    </tfoot>
+
+</table>
+
+
+@code {
+
+    [Parameter]
+    public IEnumerable<Customer> Customers { get; set; }
+
+}
