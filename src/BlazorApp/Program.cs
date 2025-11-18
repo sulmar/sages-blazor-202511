@@ -1,6 +1,8 @@
 using BlazorApp;
+using Bogus;
 using Domain.Abstractions;
 using Domain.Models;
+using Infrastructure.Fakers;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -14,14 +16,11 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.Services.AddTransient<ICustomerRepository, InMemoryCustomerRepository>();
 
+builder.Services.AddTransient<Faker<Customer>, CustomerFaker>();
+
 builder.Services.AddTransient<IEnumerable<Customer>>(sp =>
 {
-    return new List<Customer>
-    {
-        new Customer { Id = 1, Name = "Customer #1", Email = "john@domain.com" },
-        new Customer { Id = 2, Name = "Customer #2", Email = "kate@domain.com" },
-        new Customer { Id = 3, Name = "Customer #3", Email = "bart@domain.com" },
-    };
+    return sp.GetRequiredService<Faker<Customer>>().Generate(100);
 });
 
 await builder.Build().RunAsync();

@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Bogus.Extensions.Poland;
 using Domain.Models;
 
 namespace Infrastructure.Fakers;
@@ -13,5 +14,6 @@ public sealed class CustomerFaker : Faker<Customer>
         RuleFor(p => p.Name, f => f.Company.CompanyName());
         RuleFor(p => p.Email, f => f.Internet.Email());
         RuleFor(p => p.IsDeleted, f => f.Random.Bool(0.3f)); // Adjusted probability distribution: 30% chance of being true
+        RuleFor(p => p.Nip, f => f.Company.Nip());
     }
 }
