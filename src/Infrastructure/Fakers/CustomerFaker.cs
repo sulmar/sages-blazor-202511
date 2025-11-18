@@ -15,5 +15,6 @@ public sealed class CustomerFaker : Faker<Customer>
         RuleFor(p => p.Email, f => f.Internet.Email());
         RuleFor(p => p.IsDeleted, f => f.Random.Bool(0.3f)); // Adjusted probability distribution: 30% chance of being true
         RuleFor(p => p.Nip, f => f.Company.Nip());
+        RuleFor(p => p.DeletedAt, (f, c) => c.IsDeleted ? f.Date.Past(3) : null);
     }
 }
