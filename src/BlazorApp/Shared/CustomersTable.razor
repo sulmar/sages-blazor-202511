@@ -1,24 +1,5 @@
 ﻿
-<table class="table table-bordered table-striped">
-    <thead>
-       @HeaderTemplate
-    </thead>
-
-    <tbody>
-        @foreach (var customer in Customers)
-        {
-           @RowTemplate(customer)   
-        }
-    </tbody>
-
-    <tfoot>
-        <tr>
-            Count: @Customers.Count()
-        </tr>
-    </tfoot>
-
-</table>
-
+<ItemsTable Items="@Customers" HeaderTemplate="@HeaderTemplate" RowTemplate="@RowTemplate" />
 
 @code {
 

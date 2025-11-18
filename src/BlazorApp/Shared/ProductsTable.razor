@@ -1,0 +1,27 @@
+﻿
+<ItemsTable Items="@Products">
+
+    <HeaderTemplate>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+    </HeaderTemplate>
+
+    <RowTemplate>
+        <tr>
+            <th>@context.Name</th>
+            <th>@context.Description</th>
+            <th>@context.Price</th>
+        </tr>
+    </RowTemplate>
+
+</ItemsTable>
+
+
+@code {
+
+    [Parameter]
+    public IEnumerable<Product> Products { get; set;  }
+}
