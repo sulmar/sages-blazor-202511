@@ -12,6 +12,6 @@ public sealed class ProductFaker : Faker<Product>
         RuleFor(p => p.Name, f => f.Commerce.ProductName());
         RuleFor(p => p.Description, f => f.Commerce.ProductDescription());
         RuleFor(p => p.Price, f => f.Finance.Amount(1, 1000));
-        RuleFor(p => p.ImageUrl, (f,p) => $"https://picsum.photos/seed/{p.Id}/300/400");
+        RuleFor(p => p.ImageUrl, (f,p) => $"https://loremflickr.com/300/400");
     }
 }
