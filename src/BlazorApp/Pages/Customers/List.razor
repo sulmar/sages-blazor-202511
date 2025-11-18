@@ -37,17 +37,4 @@
 
 @code {
     private string message = "Customer List";
-
-    // [Inject]
-    // ICustomerRepository Repository { get; set; }
-
-    private IEnumerable<Customer> customers = [];
-
-    protected override async Task OnInitializedAsync()
-    {
-        customers = await Repository.GetAllAsync();
-    }
-
-
-
 }
