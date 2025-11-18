@@ -1,5 +1,7 @@
 ﻿@page "/customers"
+@using Domain.Abstractions
 @using Domain.Models
+@inject ICustomerRepository Repository
 
 <h3>@message</h3>
 
@@ -13,17 +15,14 @@
 @code {
     private string message = "Customer List";
 
-    private List<Customer> customers;
+    // [Inject]
+    // ICustomerRepository Repository { get; set; }
 
-    protected override void OnInitialized()
+    private IEnumerable<Customer> customers = [];
+
+    protected override async Task OnInitializedAsync()
     {
-        customers = new List<Customer>
-        {
-            new Customer { Id = 1, Name = "Customer #1", Email = "john@domain.com" },
-            new Customer { Id = 2, Name = "Customer #2", Email = "kate@domain.com" },
-            new Customer { Id = 3, Name = "Customer #3", Email = "bart@domain.com" },
-        };
-
+        customers = await Repository.GetAllAsync();
     }
 
 
