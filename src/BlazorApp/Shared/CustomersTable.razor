@@ -1,23 +1,13 @@
 ﻿
 <table class="table table-bordered table-striped">
     <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Nip</th>
-            <th>Archived At</th>
-        </tr>
+       @HeaderTemplate
     </thead>
 
     <tbody>
         @foreach (var customer in Customers)
         {
-            <tr>
-                <td>@customer.Name</td>
-                <td>@customer.Email</td>
-                <td>@customer.Nip</td>
-                <td>@customer.DeletedAt</td>
-            </tr>
+           @RowTemplate(customer)   
         }
     </tbody>
 
@@ -34,5 +24,11 @@
 
     [Parameter]
     public IEnumerable<Customer> Customers { get; set; }
+
+    [Parameter]
+    public RenderFragment HeaderTemplate { get; set; }
+
+    [Parameter]
+    public RenderFragment<Customer> RowTemplate { get; set; }
 
 }

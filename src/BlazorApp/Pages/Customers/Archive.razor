@@ -3,7 +3,26 @@
 
 <h3>@message</h3>
 
-<CustomersTable Customers="@customers" />
+<CustomersTable Customers="@customers">
+    <HeaderTemplate>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Nip</th>
+            <th>Archived At</th>
+        </tr>
+    </HeaderTemplate>
+
+    <RowTemplate>
+        <tr>
+            <td>@context.Name</td>
+            <td>@context.Email</td>
+            <td>@context.Nip</td>
+            <td>@context.DeletedAt</td>
+        </tr>
+    </RowTemplate>
+
+</CustomersTable>
 
 @code {
     private string message = "Customer Archive List";
