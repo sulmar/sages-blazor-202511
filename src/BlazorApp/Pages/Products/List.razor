@@ -1,0 +1,25 @@
+﻿@page "/products"
+@inject IProductRepository Repository
+
+<h3>Product List</h3>
+
+<ul>
+
+
+@foreach (var product in products)
+{
+    <li>@product.Id@product.Name @product.Description <img src="@product.ImageUrl" /> </li>
+}
+
+</ul>
+
+@code {
+    private IEnumerable<Product> products = [];
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await Repository.GetAllAsync();
+    }
+
+}
