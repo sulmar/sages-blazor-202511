@@ -3,7 +3,7 @@
 
 <h3>@message</h3>
 
-<CustomersTable Customers="@customers" >
+<CustomersTable Customers="@customers" Context="customer" >
     <HeaderTemplate>
         <tr>
             <th>Name</th>
@@ -14,9 +14,9 @@
 
     <RowTemplate>
         <tr>
-            <td>@context.Name</td>
-            <td>@context.Email</td>
-            <td>@context.Nip</td>
+            <td>@customer.Name</td>
+            <td>@customer.Email</td>
+            <td>@customer.Nip</td>
         </tr>
     </RowTemplate>
 </CustomersTable>
