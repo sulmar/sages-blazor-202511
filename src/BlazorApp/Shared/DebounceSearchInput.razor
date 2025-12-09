@@ -1,0 +1,49 @@
+﻿
+<input type="text" @bind-value="@searchText" @bind-value:after=@SearchHandler @bind-value:event="oninput" />
+
+@code {
+    [Parameter]
+    public int DebunceDelay { get; set; } = 500;
+
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set;  }
+
+    private string searchText = string.Empty;
+
+    private CancellationTokenSource cts;
+
+    private async Task SearchHandler()
+    {
+        cts?.Cancel();
+        cts?.Dispose();
+
+        cts = new CancellationTokenSource();
+
+        CancellationToken token = cts.Token;
+
+        try
+        {
+            // Debounce delay
+            await Task.Delay(DebunceDelay, token);
+
+            await SearchAsync(token);
+        }
+        catch (TaskCanceledException) { }
+    }
+
+    private async Task SearchAsync(CancellationToken cancellationToken)
+    {
+        if (!cancellationToken.IsCancellationRequested)
+        {            
+            await ValueChanged.InvokeAsync(searchText); // delegujemy obsluge zdarzenia do rodzica
+        }       
+    }
+
+
+    public void Dispose()
+    {
+        cts?.Cancel();
+        cts?.Dispose();
+    }
+}
