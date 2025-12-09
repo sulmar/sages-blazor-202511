@@ -1,8 +1,8 @@
 ﻿@page "/customers"
-@inject HttpClient Http
+@using BlazorApp.Services
+@inject ICustomerService Api
 
 <h3>@message</h3>
-
 
 <div>
 
@@ -37,7 +37,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        customers = await Http.GetFromJsonAsync<IEnumerable<Customer>>("api/customers");
+        customers = await Api.GetAll();
     }
    
     private Task SearchAsync(string searchText)
