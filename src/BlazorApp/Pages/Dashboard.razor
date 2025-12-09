@@ -1,0 +1,44 @@
+﻿@page "/dashboard"
+@using Microsoft.AspNetCore.SignalR.Client
+
+
+<h3>Dashboard</h3>
+
+@if (dashboardItem is not null)
+{
+    <p>@dashboardItem.Sessions</p>
+
+    <p>@dashboardItem.Temperature</p>
+}
+
+
+@code {
+
+    // dotnet add package Microsoft.AspNetCore.SignalR.Client
+    private HubConnection connection;
+
+
+    private DashboardItem dashboardItem;
+
+    protected override async Task OnInitializedAsync()
+    {
+        connection = new HubConnectionBuilder().WithUrl("https://localhost:7039/signalr")
+            .WithAutomaticReconnect()
+            .Build();
+
+        connection.On<DashboardItem>("DashboardChanged", item =>
+        {
+            dashboardItem = item;
+
+            StateHasChanged();
+        });
+
+        await connection.StartAsync();
+
+
+
+    }
+
+
+    record DashboardItem(int Sessions, double Temperature);
+}

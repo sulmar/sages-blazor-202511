@@ -2,6 +2,7 @@
 @using BlazorApp.Services
 @inject ICustomerService Api
 
+
 <h3>@message</h3>
 
 <div>
@@ -16,7 +17,7 @@
 
 </div>
 
-<CascadingValue Value="@Theme" Name="theme">
+
     <CascadingValue Value="@Title" Name="title">
 
         <CustomersTable Customers="@customers" Context="customer"  >
@@ -38,7 +39,7 @@
         </CustomersTable>
 
     </CascadingValue>
-</CascadingValue>
+
 
 
 @code {

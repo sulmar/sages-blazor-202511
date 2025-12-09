@@ -8,12 +8,10 @@ using System.Security.AccessControl;
 
 namespace BlazorApp.Handlers;
 
-public class BearerTokenHandler(IHttpContextAccessor _httpContextAccessor) : DelegatingHandler
+public class BearerTokenHandler : DelegatingHandler
 {    
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        //var token = await _httpContextAccessor.HttpContext.GetTokenAsync(CookieAuthenticationDefaults.AuthenticationScheme, "access_token") ?? string.Empty;
-
         var token = "{your-token}";
 
         request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);

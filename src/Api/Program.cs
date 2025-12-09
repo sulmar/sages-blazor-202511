@@ -1,3 +1,5 @@
+using Api.BackgroundServices;
+using Api.Hubs;
 using Bogus;
 using Domain.Abstractions;
 using Domain.Models;
@@ -27,6 +29,8 @@ builder.Services.AddTransient<IEnumerable<Product>>(sp =>
     return sp.GetRequiredService<Faker<Product>>().Generate(100);
 });
 
+builder.Services.AddTransient<DashboardHub>();
+
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
 {
     // policy.AllowAnyOrigin();
@@ -37,6 +41,11 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
     policy.AllowAnyHeader();
 
 }));
+
+
+builder.Services.AddHostedService<DashboardBackgroundService>();
+
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -59,6 +68,8 @@ app.MapGet("api/customers", async (ICustomerRepository repository, HttpContext c
 
     return Results.Ok(await repository.GetAllAsync());
 });
+
+app.MapHub<DashboardHub>("/signalr");
 
 app.Run();
 
