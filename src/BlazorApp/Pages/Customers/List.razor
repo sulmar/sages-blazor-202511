@@ -16,23 +16,26 @@
 
 </div>
 
-<CustomersTable Customers="@customers" Context="customer" Theme="@Theme" >
-    <HeaderTemplate>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Nip</th>
-        </tr>
-    </HeaderTemplate>
+<CascadingValue Value="@Theme">
+    <CustomersTable Customers="@customers" Context="customer"  >
+        <HeaderTemplate>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Nip</th>
+            </tr>
+        </HeaderTemplate>
 
-    <RowTemplate>
-        <tr>
-            <td>@customer.Name</td>
-            <td>@customer.Email</td>
-            <td>@customer.Nip</td>
-        </tr>
-    </RowTemplate>
-</CustomersTable>
+        <RowTemplate>
+            <tr>
+                <td>@customer.Name</td>
+                <td>@customer.Email</td>
+                <td>@customer.Nip</td>
+            </tr>
+        </RowTemplate>
+    </CustomersTable>
+</CascadingValue>
+
 
 @code {
 

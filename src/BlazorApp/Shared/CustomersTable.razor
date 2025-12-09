@@ -1,5 +1,5 @@
 ﻿
-<ItemsTable Items="@Customers" HeaderTemplate="@HeaderTemplate" RowTemplate="@RowTemplate" Theme="@Theme" />
+<ItemsTable Items="@Customers" HeaderTemplate="@HeaderTemplate" RowTemplate="@RowTemplate"  />
 
 @code {
 
@@ -11,9 +11,6 @@
 
     [Parameter]
     public RenderFragment<Customer> RowTemplate { get; set; }  
-
-    [Parameter]
-    public string Theme { get; set; }
 
 }
 
