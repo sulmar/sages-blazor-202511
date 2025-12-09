@@ -5,8 +5,8 @@
 
 
 <div>
-    <input type="text" @bind="@searchText" />
-    <button @onclick="@SearchAsync">Search</button>
+    <input type="text" @bind-value="@searchText" @bind-value:after=@SearchAsync @bind-value:event="oninput" />
+   @*  <button @onclick="@SearchAsync">Search</button> *@
 </div>
 
 <CustomersTable Customers="@customers" Context="customer" >
