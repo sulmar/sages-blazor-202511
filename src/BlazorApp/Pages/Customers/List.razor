@@ -5,7 +5,7 @@
 
 
 <div>
-    <input type="text" @bind-value="@searchText" @bind-value:after=@SearchAsync @bind-value:event="oninput" />
+    <input type="text" @bind-value="@searchText" @bind-value:after=@SearchHandler @bind-value:event="oninput" />
    @*  <button @onclick="@SearchAsync">Search</button> *@
 </div>
 
@@ -28,6 +28,11 @@
 </CustomersTable>
 
 @code {
+
+    private CancellationTokenSource cts;
+
+    private int DebunceDelay = 500;
+
     private string message = "Customer List";
 
     private string searchText = string.Empty;
@@ -38,12 +43,41 @@
     {
         customers = await Repository.GetAllAsync();
     }
-
-    private Task SearchAsync()
+   
+    private async Task SearchHandler()
     {
-        Console.WriteLine($"Searching {searchText}...");
+        cts?.Cancel();
+        cts?.Dispose();
+
+        cts = new CancellationTokenSource();
+
+        CancellationToken token = cts.Token;
+
+        try
+        {
+            // Debounce delay
+            await Task.Delay(DebunceDelay, token);
+
+            await SearchAsync(token);
+        }
+        catch(TaskCanceledException) {}
+    }
+
+    private Task SearchAsync(CancellationToken cancellationToken)
+    {
+        if (!cancellationToken.IsCancellationRequested)
+        {
+            Console.WriteLine($"Searching {searchText}...");            
+        }
 
         return Task.CompletedTask;
+
+    }
+
+    public void Dispose()
+    {
+        cts?.Cancel();
+        cts?.Dispose();
     }
 
 }
