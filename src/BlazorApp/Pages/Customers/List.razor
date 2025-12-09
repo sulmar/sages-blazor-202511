@@ -1,5 +1,5 @@
 ﻿@page "/customers"
-@inject ICustomerRepository Repository
+@inject HttpClient Http
 
 <h3>@message</h3>
 
@@ -30,14 +30,14 @@
 </CustomersTable>
 
 @code {
-      
+
     private string message = "Customer List";
 
-    private IEnumerable<Customer> customers = [];
+    private IEnumerable<Customer>? customers = [];
 
     protected override async Task OnInitializedAsync()
     {
-        customers = await Repository.GetAllAsync();
+        customers = await Http.GetFromJsonAsync<IEnumerable<Customer>>("api/customers");
     }
    
     private Task SearchAsync(string searchText)
