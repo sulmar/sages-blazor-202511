@@ -3,6 +3,12 @@
 
 <h3>@message</h3>
 
+
+<div>
+    <input type="text" @bind="@searchText" />
+    <button @onclick="@SearchAsync">Search</button>
+</div>
+
 <CustomersTable Customers="@customers" Context="customer" >
     <HeaderTemplate>
         <tr>
@@ -24,11 +30,20 @@
 @code {
     private string message = "Customer List";
 
+    private string searchText = string.Empty;
+
     private IEnumerable<Customer> customers = [];
 
     protected override async Task OnInitializedAsync()
     {
         customers = await Repository.GetAllAsync();
     }
-   
+
+    private Task SearchAsync()
+    {
+        Console.WriteLine($"Searching {searchText}...");
+
+        return Task.CompletedTask;
+    }
+
 }
