@@ -8,32 +8,36 @@
 
     <DebounceSearchInput DebunceDelay="250" ValueChanged="@SearchAsync" />
 
-   @*  <button @onclick="@SearchAsync">Search</button> *@
+    @*  <button @onclick="@SearchAsync">Search</button> *@
 
-   <button @onclick="@ToggleTheme">
-       Switch mode
-   </button>
+    <button @onclick="@ToggleTheme">
+        Switch mode
+    </button>
 
 </div>
 
-<CascadingValue Value="@Theme">
-    <CustomersTable Customers="@customers" Context="customer"  >
-        <HeaderTemplate>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Nip</th>
-            </tr>
-        </HeaderTemplate>
+<CascadingValue Value="@Theme" Name="theme">
+    <CascadingValue Value="@Title" Name="title">
 
-        <RowTemplate>
-            <tr>
-                <td>@customer.Name</td>
-                <td>@customer.Email</td>
-                <td>@customer.Nip</td>
-            </tr>
-        </RowTemplate>
-    </CustomersTable>
+        <CustomersTable Customers="@customers" Context="customer"  >
+            <HeaderTemplate>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Nip</th>
+                </tr>
+            </HeaderTemplate>
+
+            <RowTemplate>
+                <tr>
+                    <td>@customer.Name</td>
+                    <td>@customer.Email</td>
+                    <td>@customer.Nip</td>
+                </tr>
+            </RowTemplate>
+        </CustomersTable>
+
+    </CascadingValue>
 </CascadingValue>
 
 
@@ -49,7 +53,7 @@
     }
 
     private Task SearchAsync(string searchText)
-    {        
+    {
         Console.WriteLine($"Searching customers by {searchText}...");
 
         return Task.CompletedTask;
@@ -60,11 +64,9 @@
     private void ToggleTheme()
     {
         Theme = Theme == "light" ? "dark" : "light";
-
     }
 
+    private string Title = "Ilość";
 
-   
-    
 
 }

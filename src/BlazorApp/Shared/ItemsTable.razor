@@ -14,7 +14,7 @@
 
     <tfoot>
         <tr>
-            Count: @Items.Count()
+            @CountTitle @Items.Count()
         </tr>
     </tfoot>
 
@@ -32,8 +32,11 @@
     [Parameter]
     public RenderFragment<TItem> RowTemplate { get; set; }
 
-    [CascadingParameter]
+    [CascadingParameter(Name = "theme")]
     public string Theme { get; set; }
+
+    [CascadingParameter(Name = "title")]
+    public string CountTitle { get; set; }
 
 }
 
