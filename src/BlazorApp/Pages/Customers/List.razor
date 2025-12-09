@@ -9,9 +9,14 @@
     <DebounceSearchInput DebunceDelay="250" ValueChanged="@SearchAsync" />
 
    @*  <button @onclick="@SearchAsync">Search</button> *@
+
+   <button @onclick="@ToggleTheme">
+       Switch mode
+   </button>
+
 </div>
 
-<CustomersTable Customers="@customers" Context="customer" >
+<CustomersTable Customers="@customers" Context="customer" Theme="@Theme" >
     <HeaderTemplate>
         <tr>
             <th>Name</th>
@@ -39,17 +44,24 @@
     {
         customers = await Api.GetAll();
     }
-   
+
     private Task SearchAsync(string searchText)
     {        
         Console.WriteLine($"Searching customers by {searchText}...");
-        
+
         return Task.CompletedTask;
+    }
+
+    private string Theme = "light";
+
+    private void ToggleTheme()
+    {
+        Theme = Theme == "light" ? "dark" : "light";
 
     }
-   
 
- 
+
    
+    
 
 }
