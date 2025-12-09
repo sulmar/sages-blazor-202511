@@ -3,6 +3,7 @@ using Domain.Abstractions;
 using Domain.Models;
 using Infrastructure.Fakers;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,7 +53,12 @@ app.UseCors();
 
 app.MapGet("/ping", () => "pong");
 
-app.MapGet("api/customers", async (ICustomerRepository repository) => await repository.GetAllAsync());
+app.MapGet("api/customers", async (ICustomerRepository repository, HttpContext context) =>
+{
+
+
+    return Results.Ok(await repository.GetAllAsync());
+});
 
 app.Run();
 
